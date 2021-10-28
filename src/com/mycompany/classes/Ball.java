@@ -13,7 +13,7 @@ public class Ball {
         this.y = y;
         this.radius = radius;
         xDelta = (float)(speed*Math.cos(Math.PI*direction/180));
-        yDelta = (float) (speed*Math.sin(Math.PI*direction/180));
+        yDelta = (float) (-speed*Math.sin(Math.PI*direction/180));
     }
 
     public float getX() {

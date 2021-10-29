@@ -118,7 +118,7 @@ public class VisualBall extends Application {
         double arrowCenterX = ball.getX() + ball.getXDelta()*0.9;
         double arrowCenterY = ball.getY() + ball.getYDelta()*0.9;
 
-        //Чтобы получить координаты точек стрелки, из точки finalPoint
+        //Чтобы получить координаты точек стрелки, из точки arrowCenter
         // сместимся на отрезки, перпендикулярные направлению исходного отрезка
         double arrowLength = 4;
         double dx = finalPointX - arrowCenterX;

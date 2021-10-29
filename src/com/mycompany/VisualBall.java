@@ -38,7 +38,7 @@ public class VisualBall extends Application {
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setLineWidth(2);
         graphicsContext.strokeRect(0, 0, 400, 400);
-        drawBall(graphicsContext, ball, container);
+        drawBallSimulation(graphicsContext, ball, container);
 //        graphicsContext.strokeRect(container.getX(),container.getY(), container.getWidth(),
 //                container.getHeight());
 //        graphicsContext.strokeOval(ball.getX() - ball.getRadius(),ball.getY() - ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
@@ -52,7 +52,7 @@ public class VisualBall extends Application {
             @Override
             public void handle(ActionEvent event) {
                 ball.move();
-                drawBall(graphicsContext, ball, container);
+                drawBallSimulation(graphicsContext, ball, container);
             }
         });
 
@@ -62,7 +62,7 @@ public class VisualBall extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 ball.reflectHorizontal();
-                drawBall(graphicsContext, ball, container);
+                drawBallSimulation(graphicsContext, ball, container);
             }
         });
 
@@ -72,7 +72,7 @@ public class VisualBall extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 ball.reflectVertical();
-                drawBall(graphicsContext, ball, container);
+                drawBallSimulation(graphicsContext, ball, container);
             }
         });
 
@@ -90,15 +90,36 @@ public class VisualBall extends Application {
         stage.show();
     }
 
-    public static void drawBall(GraphicsContext graphicsContext, Ball ball, Container container) {
+    public static void drawBallSimulation(GraphicsContext graphicsContext, Ball ball, Container container) {
         graphicsContext.clearRect(0,0,400,400);
+        drawContainer(graphicsContext, container);
+        drawBall(graphicsContext, ball);
+        drawBallMovement(graphicsContext, ball);
+    }
+
+    private static void drawContainer(GraphicsContext graphicsContext, Container container) {;
         graphicsContext.strokeRect(container.getX(),container.getY(), container.getWidth(),
                 container.getHeight());
-        graphicsContext.strokeOval(ball.getX() - ball.getRadius(),ball.getY() - ball.getRadius(), ball.getRadius()*2, ball.getRadius()*2);
+    }
+
+    private static void drawBall(GraphicsContext graphicsContext, Ball ball) {
+        graphicsContext.strokeOval(ball.getX() - ball.getRadius(),ball.getY() - ball.getRadius(),
+            ball.getRadius()*2, ball.getRadius()*2);
+    }
+
+    private static void drawBallMovement(GraphicsContext graphicsContext, Ball ball) {
+        //finalPointX, finalPointY - координаты крайней точки отрезка, ведущего
+        // в точку, в которой окажется мяч после движения
         double finalPointX = ball.getX() + ball.getXDelta();
         double finalPointY = ball.getYDelta() + ball.getY();
+
+        //arrowCenterX, arrowCenterY - координаты точки на отрезке,
+        // эта точка понадобится при рисовании стрелки
         double arrowCenterX = ball.getX() + ball.getXDelta()*0.9;
         double arrowCenterY = ball.getY() + ball.getYDelta()*0.9;
+
+        //Чтобы получить координаты точек стрелки, из точки finalPoint
+        // сместимся на отрезки, перпендикулярные направлению исходного отрезка
         double arrowLength = 4;
         double dx = finalPointX - arrowCenterX;
         double dy = finalPointY - arrowCenterY;
@@ -107,6 +128,8 @@ public class VisualBall extends Application {
         double arrowPoint1Y = arrowCenterY - dx*(arrowLength/LineLenght);
         double arrowPoint2X = arrowCenterX - dy * (arrowLength/LineLenght);
         double arrowPoint2Y = arrowCenterY + dx * (arrowLength/LineLenght);
+
+        //Рисуем линии по полученным координатам
         graphicsContext.strokeLine(ball.getX(), ball.getY(), ball.getX() + ball.getXDelta(), ball.getYDelta() + ball.getY());
         graphicsContext.strokeLine(arrowPoint1X, arrowPoint1Y, finalPointX, finalPointY);
         graphicsContext.strokeLine(arrowPoint2X, arrowPoint2Y, finalPointX, finalPointY);

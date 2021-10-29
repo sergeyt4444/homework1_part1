@@ -69,48 +69,30 @@ public class MyPolynomial {
         String result = "";
         int degree = getDegree();
         int hasPreviousTerm = 0;
+        String termX = "";
         while (degree >=0) {
-            if (hasPreviousTerm == 0) {
-                if (degree > 1) {
-                    result += coeffs[degree] + "x^"+degree;
+            if (degree > 1) {
+                termX = "x^"+degree;
+            }
+            else {
+                if (degree == 1) {
+                    termX = "x";
                 }
                 else {
-                    if (degree == 1) {
-                        result += coeffs[degree] + "x";
-                    }
-                    else {
-                        result += coeffs[degree];
-                    }
+                    termX = "";
                 }
+            }
+            if (hasPreviousTerm == 0) {
+                result += coeffs[degree] + termX;
                 hasPreviousTerm = 1;
             }
             else {
                 if (coeffs[degree] > 0) {
-                    if (degree > 1) {
-                        result += "+" + coeffs[degree] + "x^"+degree;
-                    }
-                    else {
-                        if (degree == 1) {
-                            result += "+" + coeffs[degree] + "x";
-                        }
-                        else {
-                            result += "+" + coeffs[degree];
-                        }
-                    }
+                    result += "+" + coeffs[degree] + termX;
                 }
                 else {
                     if (coeffs[degree] < 0) {
-                        if (degree > 1) {
-                            result += coeffs[degree] + "x^"+degree;
-                        }
-                        else {
-                            if (degree == 1) {
-                                result += coeffs[degree] + "x";
-                            }
-                            else {
-                                result += coeffs[degree];
-                            }
-                        }
+                        result += coeffs[degree] + termX;
                     }
                 }
             }

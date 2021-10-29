@@ -45,12 +45,12 @@ public class MyComplex {
 
     public boolean isReal() {
         //В задании сказано, что функция должна проверять наличие real части
-        return real==0?false:true;
+        return real!=0;
     }
 
     public boolean isImaginary() {
         //В задании сказано, что функция должна проверять наличие мнимой части
-        return imag==0?false:true;
+        return imag!=0;
     }
 
     public boolean equals(double real, double imag) {

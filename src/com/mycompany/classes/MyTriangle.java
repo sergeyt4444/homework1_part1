@@ -1,5 +1,7 @@
 package com.mycompany.classes;
 
+import java.util.Objects;
+
 public class MyTriangle {
 
     private MyPoint v1,v2,v3;
@@ -52,5 +54,18 @@ public class MyTriangle {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyTriangle triangle = (MyTriangle) o;
+        return v1.equals(triangle.v1) && v2.equals(triangle.v2) && v3.equals(triangle.v3);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(v1, v2, v3);
     }
 }

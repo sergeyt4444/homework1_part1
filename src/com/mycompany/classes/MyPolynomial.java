@@ -1,5 +1,7 @@
 package com.mycompany.classes;
 
+import java.util.Arrays;
+
 public class MyPolynomial {
 
     //В UML нет методов доступа к коэффициентам, просто сделаю их публичными
@@ -101,4 +103,16 @@ public class MyPolynomial {
         return result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyPolynomial that = (MyPolynomial) o;
+        return Arrays.equals(coeffs, that.coeffs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(coeffs);
+    }
 }
